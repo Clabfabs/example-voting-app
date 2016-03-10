@@ -22,6 +22,8 @@ services:
     environment:
       - REDIS_HOST=redis
       - DB_HOST=db
+      - constraint:provider==digitalocean
+
 
   redis:
     image: redis
