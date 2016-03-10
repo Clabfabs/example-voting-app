@@ -23,9 +23,10 @@ class Worker {
 			System.err.printf("Processing vote for '%s' by '%s'\n", vote, voterID);
 			updateVote(dbConn, voterID, vote);
 		  }
-		} catch (SQLException e) {
+		} catch (Exception e) {
 		  e.printStackTrace();
 		}
+		continue;
 	}
   }
 
