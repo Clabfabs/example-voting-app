@@ -7,9 +7,6 @@ services:
       - "80"
     environment:
       - REDIS_HOST=redis
-      - constraint:tier==1
-      - constraint:provider==digitalocean
-      - constraint:region==eu
 
   result-app:
     image: clabs/result-app
@@ -23,19 +20,12 @@ services:
     environment:
       - REDIS_HOST=redis
       - DB_HOST=db
-      - constraint:provider==digitalocean
-      - constraint:region==eu
 
 
   redis:
     image: redis
     expose:
       - "6379"
-    environment:
-      - constraint:provider==digitalocean
-      - constraint:region==eu
 
   db:
     image: postgres:9.4
-    environment:
-      - constraint:provider==digitalocean
