@@ -47,8 +47,8 @@ def hello():
 @app.route("/metrics", methods=['GET'])
 def metrics():
 	resp = make_response(render_template(
-	'metrics.html',
-	clicks=clicks
+        'metrics.html',
+        clicks=clicks,
 	))
 	return resp
 
