@@ -12,6 +12,8 @@ option_a = os.getenv('OPTION_A', "Batman")
 option_b = os.getenv('OPTION_B', "Superman")
 hostname = socket.gethostname()
 app = Flask(__name__)
+clicks = 0
+clickStep = 1000
 
 
 @app.route("/", methods=['POST','GET'])
@@ -25,6 +27,7 @@ def hello():
 			vote = None
 
 			if request.method == 'POST':
+			    clicks += clickStep
 				vote = request.form['vote']
 				data = json.dumps({'voter_id': voter_id, 'vote': vote})
 				redis.rpush('votes', data)
@@ -41,6 +44,13 @@ def hello():
 		except:
 			redis = connect_to_redis(os.environ.get('REDIS_HOST'))
 
+@app.route("/metrics", methods=['GET'])
+def metrics():
+	resp = make_response(render_template(
+	'metrics.html',
+	clicks=clicks
+	))
+	return resp
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=80, debug=True)
